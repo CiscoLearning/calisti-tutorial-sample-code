@@ -1,0 +1,21 @@
+apiVersion: servicemesh.cisco.com/v1alpha1
+kind: IstioMeshGateway
+metadata:
+  name: demo-gw
+spec:
+  istioControlPlane:
+    name: cp-v115x
+    namespace: istio-system
+  runAsRoot: false
+  service:
+    ports:
+      - name: tcp-status-port
+        port: 15021
+        protocol: TCP
+        targetPort: 15021
+      - name: http
+        port: 80
+        protocol: TCP
+        targetPort: 8080
+    type: LoadBalancer
+  type: ingress 

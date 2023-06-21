@@ -1,0 +1,26 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: WorkloadGroup
+metadata:
+  labels:
+    app: analytics
+    version: v0
+  name: analytics-v0
+  namespace: smm-demo
+spec:
+  metadata:
+    labels:
+      app: analytics
+      version: v0
+  probe:
+    httpGet:
+      path: /
+      host: 127.0.0.1
+      port: 8080
+      scheme: HTTP
+  template:
+    network: network1
+    ports:
+      http: 8080
+      grpc: 8082
+      tcp: 8083
+    serviceAccount: default
