@@ -1,0 +1,106 @@
+apiVersion: kafka.banzaicloud.io/v1beta1
+kind: KafkaACL
+metadata:
+  labels:
+    app: analytics
+  name: analytics
+  namespace: kafka
+spec:
+  clusterRef:
+    name: kafka
+    namespace: kafka
+  kind: User
+  name: CN=smm-demo-default
+  roles:
+  - name: producer
+    resourceSelectors:
+    - name: recommendations-topic
+      namespace: kafka
+
+---
+apiVersion: kafka.banzaicloud.io/v1beta1
+kind: KafkaACL
+metadata:
+  labels:
+    app: analytics
+  name: analytics
+  namespace: kafka
+spec:
+  clusterRef:
+    name: kafka
+    namespace: kafka
+  kind: User
+  name: CN=smm-demo-default
+  roles:
+  - name: producer
+    resourceSelectors:
+    - name: recommendations-topic
+      namespace: kafka
+
+---
+apiVersion: kafka.banzaicloud.io/v1beta1
+kind: KafkaACL
+metadata:
+  labels:
+    app: bookings
+  name: bookings
+  namespace: kafka
+spec:
+  clusterRef:
+    name: kafka
+    namespace: kafka
+  kind: User
+  name: CN=smm-demo-default
+  roles:
+  - name: producer
+    resourceSelectors:
+    - name: recommendations-topic
+      namespace: kafka
+
+---
+apiVersion: kafka.banzaicloud.io/v1beta1
+kind: KafkaACL
+metadata:
+  labels:
+    app: recommendations
+  name: recommendations
+  namespace: kafka
+spec:
+  clusterRef:
+    name: kafka
+    namespace: kafka
+  kind: User
+  name: CN=smm-demo-default
+  roles:
+  - name: consumer
+    resourceSelectors:
+    - name: recommendations-topic
+      namespace: kafka
+    - name: recommendations-group
+      namespace: kafka
+
+---
+apiVersion: kafka.banzaicloud.io/v1beta1
+kind: KafkaResourceSelector
+metadata:
+  labels:
+    app: recommendations
+  name: recommendations-group
+  namespace: kafka
+spec:
+  name: recommendations-group
+  pattern: literal
+  type: group
+
+---
+apiVersion: kafka.banzaicloud.io/v1beta1
+kind: KafkaResourceSelector
+metadata:
+  labels:
+    app: recommendations
+  name: recommendations-topic
+  namespace: kafka
+spec:
+  name: recommendations-topic
+  pattern: literal
+  type: topic

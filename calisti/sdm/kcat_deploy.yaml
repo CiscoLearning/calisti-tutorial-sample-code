@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kcat
+spec:
+  containers:
+  - name: kafka-test
+    image: "edenhill/kcat:1.7.1"
+    # Just spin & wait forever
+    command: [ "/bin/sh", "-c", "--" ]
+    args: [ "while true; do sleep 3000; done;" ]

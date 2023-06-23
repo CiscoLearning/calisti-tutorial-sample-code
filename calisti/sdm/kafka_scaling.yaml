@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  creationTimestamp: null
+  labels:
+    prometheus: kafka-rules
+    banzaicloud.io/managed-by: supertubes
+  name: kafka-autoscale-rules
+  namespace: kafka
+spec:
+  groups:
+  - name: KafkaAutoscaleRules
+    rules:
+    - alert: BrokerUnderReplicated
+      expr: kafka_server_replicamanager_underreplicatedpartitions_value > 0
+      for: 30s
+      labels:
+        severity: alert
+      annotations:
+        description: 'broker underreplicated'
+        summary: 'broker underreplicated'
+        brokerConfigGroup: 'default'
+        command: 'upScale'

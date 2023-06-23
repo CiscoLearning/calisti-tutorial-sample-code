@@ -1,0 +1,20 @@
+apiVersion: kafka.banzaicloud.io/v1beta1
+kind: KafkaACL
+metadata:
+  labels:
+    app: kcat
+  name: kcat
+  namespace: kafka
+spec:
+  clusterRef:
+    name: kafka
+    namespace: kafka
+  kind: User
+  name: CN=kcat-default
+  roles:
+  - name: consumer
+    resourceSelectors:
+    - name: recommendations-topic
+      namespace: kafka
+    - name: recommendations-group
+      namespace: kafka
